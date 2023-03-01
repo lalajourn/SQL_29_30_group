@@ -1,0 +1,84 @@
+create table salary(
+	id serial primary key,
+	monthly_salary int not null
+);
+
+select * from salary;
+
+create table roles(
+	id serial primary key,
+	role_title varchar (50) unique not null
+);
+
+select * from roles;
+
+create table roles_salary(
+	id serial primary key,
+	id_role int not null,
+	id_salary int not null,
+	foreign key (id_role)
+		references roles(id),
+	foreign key (id_salary)
+		references salary(id)
+);
+
+select * from roles_salary;
+
+insert into salary(id, monthly_salary)
+values(2, 2200);
+
+select * from salary;
+
+insert into salary(id, monthly_salary)
+values(default, 1600),
+	  (default, 1700),
+	  (default, 1800);
+	  
+select * from salary;
+
+insert into salary(id, monthly_salary)
+values(3300),
+	  (3600),
+	  (2300),
+	  (6300);
+	  
+insert into roles(role_title)
+values ('QA_manual_junior'),
+	   ('QA_manual_middle'),
+	   ('QA_manual_senior');
+	   
+insert into roles_salary(id_role, id_salary)
+values (1, 4),
+       (3, 1),
+       (2, 5),
+       (4, 3);
+       
+select * from salary;
+
+select * from roles_salary;
+      
+alter table roles
+add column parking int;
+
+select * from roles;
+
+alter table roles
+rename column parking to taxi;
+
+alter table roles
+drop column taxi;
+
+alter table roles 
+alter column parking type varchar(32) using parking::varchar;
+
+alter table roles
+alter column parking type int using parking::integer;
+
+
+update salary
+set monthly_salary = 3000
+where id = 1;
+
+
+alter table roles
+alter column taxi set not null;
